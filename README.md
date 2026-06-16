@@ -46,6 +46,12 @@ The HoG algorithm works by:
 
 ---
 
+## Notes
+
+- Added in the HoG files, but removed the actual data files since there's so many
+
+---
+
 ## Contact
 
 For further information, please contact the team representative at: **z5492119@ad.unsw.edu.au**
