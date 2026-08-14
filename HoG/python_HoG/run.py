@@ -1,4 +1,4 @@
-import hog
+import HoG.python_HoG.hog as hog
 import os
 
 hogResult = []

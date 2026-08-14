@@ -39,6 +39,7 @@ import matplotlib.image as iread
 import tensorflow as tf
 from PIL import Image
 import numpy as np
+from time import perf_counter
 
 cwd = os.getcwd()
 
@@ -184,7 +185,9 @@ def create_hog_file(image_path,save_path):
 	write_hog_file(save_path,final_array)
 
 if __name__ == '__main__':
-	create_hog_file('logo.jpg','logo.txt')
-	mg = read_hog_file('logo.txt')
-	print(mg)
-	print(mg.shape)
+    start = perf_counter()
+
+    create_hog_file('9999.bmp', '9999.txt')
+
+    elapsed = perf_counter() - start
+    print(f"Full HoG pipeline took {elapsed:.4f} seconds")

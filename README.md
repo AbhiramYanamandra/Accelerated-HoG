@@ -6,7 +6,7 @@
 
 This project focuses on accelerating the computation of **Histogram of Oriented Gradients (HoG)** descriptors using FPGA-based High-Level Synthesis (HLS). HoG descriptors are a powerful feature extraction technique used in traditional (non-deep-learning) machine learning pipelines. When paired with a Support Vector Machine (SVM), they are highly effective for image classification tasks such as digit recognition.
 
-For this project, we restrict our implementation to **8-bin HoG** descriptors and evaluate performance on a batch of 10,000 images from the **MNIST dataset** (provided in bitmap format). Speedup is measured by comparing the latency and/or throughput of the hardware-accelerated HLS design against a software-only implementation running on the Processing System (PS).
+For this project, we restrict our implementation to **8-bin HoG** descriptors and evaluate performance on a batch of 10,000 images from the **CIFAR-BW dataset** (provided in bitmap format). Speedup is measured by comparing the latency and/or throughput of the hardware-accelerated HLS design against a software-only implementation running on the Processing System (PS).
 
 ### HoG Algorithm Summary
 
@@ -25,6 +25,19 @@ The HoG algorithm works by:
 3. Profile the software implementation to identify performance bottlenecks.
 4. Port the implementation to an HLS design, applying directives (e.g., loop unrolling, pipelining, array partitioning) to exploit parallelism on the FPGA fabric.
 5. Benchmark the HLS design against the PS baseline using latency and throughput metrics.
+
+### Project Documentation
+
+- [Initial Investigation and Plan](Initial_Investigation_And_Plan.pdf) — the project's initial research, scope, implementation plan, and proposed FPGA acceleration strategy.
+- [Project Updates](project_updates.md) — a dated record of changes to the project direction and the reasons behind them.
+- [Final Project Presentation](COMP4601_Project_Presentation_Final.pdf) — the final presentation covering the implementation, optimisations, and results.
+- [Demonstration Plan](demonstration_plan.pdf) — the planned walkthrough of the accelerator versions, performance comparison, and demonstration fallback.
+- [Final Reprt](COMP4601_ProjectReport.pdf) — final report, which covers content which we could fit in within the presentation and demonstration.
+
+### Sample HoG Input and Output
+
+- [`9999.bmp`](9999.bmp) is a 32 × 32, 8-bit bitmap that serves as a single-image input example. The Python HoG implementation reads it as a grayscale image and runs the complete feature-extraction pipeline on it.
+- [`9999.txt`](9999.txt) is the output generated from `9999.bmp`. It contains the resulting 288-value normalised HoG feature vector (9 blocks × 4 cells × 8 orientation bins), with one value per line. This provides an easy way to inspect and validate how an input image is converted into features for comparison or classification.
 
 ### Resources
 

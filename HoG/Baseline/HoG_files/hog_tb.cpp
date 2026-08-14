@@ -1,29 +1,28 @@
-// HLS testbench for hog_compute. Reads a 32x32 pixel grid from input.dat
-// and the corresponding 288-value golden feature vector from
-// out.gold.dat, runs hog_compute(), and reports pass/fail.
-//
-// Data files are read relative to the current working directory, matching
-// the convention used by the course's fir128 testbench (input.dat /
-// out.gold.dat added directly to the HLS component's testbench fileset).
+// This file is the testbench, checking whether the computed HoG output matches the expected golden result from the dataset.
 #include "hog.h"
 
 #include <cmath>
 #include <cstdio>
 
-int main() {
+int main()
+{
     unsigned char image[IMG_H][IMG_W];
     float golden[FEATURE_LEN];
     float features[FEATURE_LEN];
 
     FILE *fin = fopen("input.dat", "r");
-    if (!fin) {
+    if (!fin)
+    {
         printf("ERROR: could not open input.dat\n");
         return 1;
     }
-    for (int h = 0; h < IMG_H; h++) {
-        for (int w = 0; w < IMG_W; w++) {
+    for (int h = 0; h < IMG_H; h++)
+    {
+        for (int w = 0; w < IMG_W; w++)
+        {
             int v;
-            if (fscanf(fin, "%d", &v) != 1) {
+            if (fscanf(fin, "%d", &v) != 1)
+            {
                 printf("ERROR: malformed input.dat\n");
                 fclose(fin);
                 return 1;
@@ -34,12 +33,15 @@ int main() {
     fclose(fin);
 
     FILE *fgold = fopen("out.gold.dat", "r");
-    if (!fgold) {
+    if (!fgold)
+    {
         printf("ERROR: could not open out.gold.dat\n");
         return 1;
     }
-    for (int i = 0; i < FEATURE_LEN; i++) {
-        if (fscanf(fgold, "%f", &golden[i]) != 1) {
+    for (int i = 0; i < FEATURE_LEN; i++)
+    {
+        if (fscanf(fgold, "%f", &golden[i]) != 1)
+        {
             printf("ERROR: malformed out.gold.dat\n");
             fclose(fgold);
             return 1;
@@ -52,14 +54,18 @@ int main() {
     const float TOL = 1e-4f;
     int errors = 0;
     float max_diff = 0.0f;
-    for (int i = 0; i < FEATURE_LEN; i++) {
+    for (int i = 0; i < FEATURE_LEN; i++)
+    {
         float diff = std::fabs(features[i] - golden[i]);
-        if (diff > max_diff) max_diff = diff;
-        if (diff > TOL) errors++;
+        if (diff > max_diff)
+            max_diff = diff;
+        if (diff > TOL)
+            errors++;
     }
 
     printf("Max abs diff: %.8f\n", max_diff);
-    if (errors == 0) {
+    if (errors == 0)
+    {
         printf("Test passed!\n");
         return 0;
     }
